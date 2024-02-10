@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyComponent {
+        "maxWords": number;
         "pairs": Array<any>;
     }
     interface OneWord {
@@ -33,6 +34,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MyComponent {
+        "maxWords"?: number;
         "pairs"?: Array<any>;
     }
     interface OneWord {

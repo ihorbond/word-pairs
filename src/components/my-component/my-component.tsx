@@ -11,6 +11,7 @@ type OneWord = {
   shadow: true,
 })
 export class MyComponent {
+  @Prop() maxWords: number = 3;
   @Prop() pairs: Array<any> = [
     {
       word: 'hello',
@@ -23,6 +24,14 @@ export class MyComponent {
     {
       word: 'how are you',
       pair: 'como estas',
+    },
+    {
+      word: 'house',
+      pair: 'casa',
+    },
+    {
+      word: 'woman',
+      pair: 'mujer',
     },
   ];
 
@@ -80,7 +89,7 @@ export class MyComponent {
         <div id="columns">
           <div class="column">
             <ul>
-              {this.leftColumn.map(({ text, isSelected }, idx) => {
+              {this.leftColumn.slice(0, this.maxWords).map(({ text, isSelected }, idx) => {
                 return (
                   <li key={text} onClick={() => this.onWordSelected('left', idx)}>
                     <one-word isSelected={isSelected}>{text}</one-word>
@@ -91,7 +100,7 @@ export class MyComponent {
           </div>
           <div class="column">
             <ul>
-              {this.rightColumn.map(({ text, isSelected }, idx) => {
+              {this.rightColumn.slice(0, this.maxWords).map(({ text, isSelected }, idx) => {
                 return (
                   <li key={text} onClick={() => this.onWordSelected('right', idx)}>
                     <one-word isSelected={isSelected}>{text}</one-word>
