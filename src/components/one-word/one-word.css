@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+button {
+  min-width: 200px;
+  border: 1px solid gray;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.selected {
+  background-color: lightcyan;
+}

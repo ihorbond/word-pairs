@@ -7,18 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "pairs": Array<any>;
+    }
+    interface OneWord {
+        "isSelected": boolean;
     }
 }
 declare global {
@@ -28,27 +20,27 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLOneWordElement extends Components.OneWord, HTMLStencilElement {
+    }
+    var HTMLOneWordElement: {
+        prototype: HTMLOneWordElement;
+        new (): HTMLOneWordElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "one-word": HTMLOneWordElement;
     }
 }
 declare namespace LocalJSX {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "pairs"?: Array<any>;
+    }
+    interface OneWord {
+        "isSelected"?: boolean;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "one-word": OneWord;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +48,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "one-word": LocalJSX.OneWord & JSXBase.HTMLAttributes<HTMLOneWordElement>;
         }
     }
 }
