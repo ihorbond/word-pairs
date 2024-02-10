@@ -30,38 +30,48 @@ export class MyComponent {
   @State() rightColumn: Array<OneWord> = [];
 
   componentWillLoad() {
-    this.leftColumn = this.pairs.map(pair => ({
-      text: pair.word,
+    this.leftColumn = this.pairs.map(x => ({
+      text: x.word,
       isSelected: false,
     }));
-    this.rightColumn = this.pairs.map(pair => ({
-      text: pair.pair,
+    this.rightColumn = this.pairs.map(x => ({
+      text: x.pair,
       isSelected: false,
     }));
   }
 
-  private onWordSelected(column: string, idx: number): void {
+  private onWordSelected(column: string, selectedIdx: number): void {
     if (column === 'left') {
-      this.leftColumn[idx].isSelected = true;
-      this.leftColumn = [...this.leftColumn];
+      this.leftColumn = this.leftColumn.map((x, idx) => ({
+        ...x,
+        isSelected: idx === selectedIdx,
+      }));
     }
     if (column === 'right') {
-      this.rightColumn[idx].isSelected = true;
-      this.rightColumn = [...this.rightColumn];
+      this.rightColumn = this.rightColumn.map((x, idx) => ({
+        ...x,
+        isSelected: idx === selectedIdx,
+      }));
     }
-    if (this.leftColumn[idx].isSelected === this.rightColumn[idx].isSelected) {
-      console.log('match');
-      setTimeout(() => {
-        this.leftColumn = this.leftColumn.toSpliced(idx, 1);
-        this.rightColumn = this.rightColumn.toSpliced(idx, 1);
-      }, 1000);
+    const isLeftSelected = this.leftColumn.some(x => x.isSelected);
+    const isRightSelected = this.rightColumn.some(x => x.isSelected);
+    if (isLeftSelected && isRightSelected) {
+      const isMatch = this.leftColumn[selectedIdx].isSelected === this.rightColumn[selectedIdx].isSelected;
+      if (isMatch) {
+        console.log('match');
+        setTimeout(() => {
+          this.leftColumn = this.leftColumn.toSpliced(selectedIdx, 1);
+          this.rightColumn = this.rightColumn.toSpliced(selectedIdx, 1);
+        }, 500);
+      } else {
+        console.log('no match');
+        setTimeout(() => {
+          this.leftColumn = this.leftColumn.map(x => ({ ...x, isSelected: false }));
+          this.rightColumn = this.rightColumn.map(x => ({ ...x, isSelected: false }));
+        }, 500);
+      }
     }
-    // console.log(idx);
   }
-
-  // private getText(): string {
-  //   return format(this.first, this.middle, this.last);
-  // }
 
   render() {
     return (
