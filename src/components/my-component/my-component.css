@@ -4,14 +4,16 @@
 
 #columns {
   display: flex;
+  border: 1px solid gray;
+  padding: 10px;
 }
 
 .column {
-  flex: 50%;
   ul {
     padding: 0px;
     margin: 0px;
     li {
+      padding: 5px;
       list-style: none;
     }
   }

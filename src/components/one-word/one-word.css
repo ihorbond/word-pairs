@@ -5,8 +5,10 @@
 button {
   min-width: 200px;
   border: 1px solid gray;
+  border-radius: 5px;
   padding: 10px;
   background-color: transparent;
+  font-weight: bolder;
 }
 
 .selected {
